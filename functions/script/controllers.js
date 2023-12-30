@@ -1,4 +1,4 @@
-async function retrieveAllRawItems(req) {
+async function retrieveData(req) {
   const storeName = process.env.SHOPIFY_STORE_NAME;
   const shopifyUrl = `https://${storeName}.myshopify.com/admin/api/2023-10/graphql.json`;
 
@@ -22,10 +22,10 @@ async function retrieveAllRawItems(req) {
   }
 }
 
-module.exports = {
-  getAllItems: async function (req, res) {
+export default {
+  handleGqlPost: async function (req, res) {
     try {
-      const rawData = await retrieveAllRawItems(req);
+      const rawData = await retrieveData(req);
 
       res.json(rawData);
     } catch (error) {
