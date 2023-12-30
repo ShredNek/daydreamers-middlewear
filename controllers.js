@@ -27,10 +27,8 @@ module.exports = {
     try {
       const rawData = await retrieveAllRawItems(req);
 
-      // Send the unprocessed data to the client
       res.json(rawData);
     } catch (error) {
-      // Handle errors and send an appropriate response to the client
       console.error("Error processing data:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
