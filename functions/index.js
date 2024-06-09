@@ -19,20 +19,24 @@
 // });
 
 import express from "express";
+import bodyParser from "body-parser";
 import cors from "cors";
 import functions from "firebase-functions";
 import controllers from "./script/controllers.js";
 
-// require("dotenv").config();
+const port = 3000;
 
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(express.json());
 
-// app.use(express.json());
-// app.use(express.static("public"));
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
 app.get("/", (req, res) => res.send("All good to go"));
-
 app.post("/", (req, res) => controllers.handleGqlPost(req, res));
+app.post("/enquiry", (req, res) => controllers.postEnquiry(req, res));
 
 export const api = functions.https.onRequest(app);
